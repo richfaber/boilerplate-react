@@ -1,10 +1,10 @@
 import { Outlet } from 'react-router-dom'
-import "./_Default.scss"
+import style from "./Default.module.scss"
 
 export default function Default() {
 
   return (<>
-    <div data-layout="default">
+    <div className={style.default}>
       <Outlet />
     </div>
   </>)
