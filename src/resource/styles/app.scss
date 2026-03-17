@@ -1,6 +1,5 @@
-@import "base/reset";
-@import "base/common";
+@import "base/_reset.scss";
+@import "base/_common.scss";
 
-@import "layout/default";
-@import "layout/blank";
-@import "layout/popup";
+@import "layout/_blank.scss";
+@import "layout/_popup.scss";

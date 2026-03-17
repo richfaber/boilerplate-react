@@ -34,15 +34,15 @@ pnpm build
 
 ```
 src/
-├── components/   # 공통 컴포넌트
-├── layouts/      # 레이아웃 컴포넌트
-├── pages/        # 페이지 컴포넌트
+├── component/    # 공통 컴포넌트
+├── layout/       # 레이아웃 컴포넌트
+├── page/         # 페이지 컴포넌트
 ├── store/        # 상태 관리
-├── hooks/        # 커스텀 훅
+├── hook/         # 커스텀 훅
 ├── resource/     # 정적 리소스
 │   ├── assets/   # 이미지, 폰트 등
 │   └── styles/   # 공통 스타일 (variables, mixins, reset)
-└── utils/        # 유틸리티 함수
+└── util/         # 유틸리티 함수
 ```
 
 ## 문서

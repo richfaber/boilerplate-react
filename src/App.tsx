@@ -1,11 +1,14 @@
 import { useState } from 'react'
 
+import Default from '@/layout/Default'
+
 function App() {
-  const [count, setCount] = useState(0)
 
   return (
     <>
-      App
+      <Default>
+        App
+      </Default>
     </>
   )
 }
