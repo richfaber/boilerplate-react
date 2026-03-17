@@ -7,7 +7,7 @@ pnpm add -D sass
 ## 폴더 구조
 
 ```
-src/resource/styles/
+src/resource/style/
 ├── define/               # CSS 미생성 → additionalData로 자동 주입
 │   ├── _variable.scss    # 색상, 폰트, 간격 등 변수
 │   └── _mixin.scss       # 재사용 믹스인
@@ -32,7 +32,7 @@ src/resource/styles/
 ## main.tsx
 
 ```tsx
-import '@/resource/styles/app.scss'
+import '@/resource/style/app.scss'
 ```
 
 ## vite.config.ts
@@ -45,9 +45,9 @@ css: {
     scss: {
       silenceDeprecations: ['import'],
       additionalData: `
-        @use "@/resource/styles/define/variable" as *;
-        @use "@/resource/styles/define/mixin" as *;
-        @use "@/resource/styles/vendor/sassy-cubic-bezier" as *;
+        @use "@/resource/style/define/variable" as *;
+        @use "@/resource/style/define/mixin" as *;
+        @use "@/resource/style/vendor/sassy-cubic-bezier" as *;
       `
     }
   }

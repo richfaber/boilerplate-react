@@ -1,5 +1,5 @@
 
-import "@/resource/styles/layout/_default.scss"
+import "@/resource/style/layout/_default.scss"
 
 export default function Default({ children }) {
 

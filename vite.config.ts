@@ -37,9 +37,9 @@ export default defineConfig({
         silenceDeprecations: ['import'],
 
         additionalData: `
-          @use "@/resource/styles/define/variable" as *;
-          @use "@/resource/styles/define/mixin" as *;
-          @use "@/resource/styles/vendor/sassy-cubic-bezier" as *;
+          @use "@/resource/style/define/variable" as *;
+          @use "@/resource/style/define/mixin" as *;
+          @use "@/resource/style/vendor/sassy-cubic-bezier" as *;
         `
 
       }

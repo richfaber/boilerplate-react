@@ -25,6 +25,6 @@ resolve: {
 
 ```tsx
 // 사용 예
-import '@/resource/styles/app.scss'
+import '@/resource/style/app.scss'
 import Button from '@/components/Button'
 ```
