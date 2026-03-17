@@ -49,6 +49,7 @@ src/
 
 - [경로 Alias 설정](docs/alias.md)
 - [SCSS 설정](docs/scss.md)
+- [React 한계 및 의사결정](docs/limitations.md)
 
 ---
 

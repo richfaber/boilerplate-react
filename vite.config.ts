@@ -16,8 +16,14 @@ export default defineConfig({
       gif: { optimizationLevel: 3 },
       svg: {
         plugins: [
-          { name: 'removeViewBox', active: false },
-          { name: 'cleanupIDs', active: false },
+          {
+            name: 'preset-default',
+            params: {
+              overrides: {
+                cleanupIds: false,
+              }
+            }
+          }
         ]
       },
       webp: { quality: 80 },
@@ -27,6 +33,22 @@ export default defineConfig({
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src')
+    }
+  },
+
+  build: {
+    rollupOptions: {
+      output: {
+        chunkFileNames: 'resource/js/[name]-[hash].js',
+        entryFileNames: 'resource/js/[name]-[hash].js',
+        assetFileNames: (assetInfo) => {
+          const ext = assetInfo.names?.[0]?.split('.').pop() ?? ''
+          if (/css/.test(ext)) return 'resource/css/[name]-[hash][extname]'
+          if (/png|jpe?g|gif|svg|webp|ico/.test(ext)) return 'resource/image/[name]-[hash][extname]'
+          if (/woff2?|ttf|eot/.test(ext)) return 'resource/font/[name]-[hash][extname]'
+          return 'resource/[name]-[hash][extname]'
+        }
+      }
     }
   },
 

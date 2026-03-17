@@ -1,11 +1,11 @@
+import { Outlet } from 'react-router-dom'
+import "./_Default.scss"
 
-import "@/resource/style/layout/_default.scss"
-
-export default function Default({ children }) {
+export default function Default() {
 
   return (<>
     <div data-layout="default">
-      <div className="specific">{ children }</div>
+      <Outlet />
     </div>
   </>)
 
