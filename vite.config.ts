@@ -39,14 +39,14 @@ export default defineConfig({
   build: {
     rollupOptions: {
       output: {
-        chunkFileNames: 'resource/js/[name]-[hash].js',
-        entryFileNames: 'resource/js/[name]-[hash].js',
+        chunkFileNames: 'js/[name]-[hash].js',
+        entryFileNames: 'js/[name]-[hash].js',
         assetFileNames: (assetInfo) => {
           const ext = assetInfo.names?.[0]?.split('.').pop() ?? ''
-          if (/css/.test(ext)) return 'resource/css/[name]-[hash][extname]'
-          if (/png|jpe?g|gif|svg|webp|ico/.test(ext)) return 'resource/image/[name]-[hash][extname]'
-          if (/woff2?|ttf|eot/.test(ext)) return 'resource/font/[name]-[hash][extname]'
-          return 'resource/[name]-[hash][extname]'
+          if (/css/.test(ext)) return 'css/[name]-[hash][extname]'
+          if (/png|jpe?g|gif|svg|webp|ico/.test(ext)) return 'image/[name]-[hash][extname]'
+          if (/woff2?|ttf|eot/.test(ext)) return 'font/[name]-[hash][extname]'
+          return '[name]-[hash][extname]'
         }
       }
     }
