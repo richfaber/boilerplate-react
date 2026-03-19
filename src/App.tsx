@@ -1,9 +1,13 @@
 import { lazy } from 'react'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 
-import Default from '@/layout/Default'
+import ProtectedRoute from '@/layout/ProtectedRoute'
+import DefaultLayout from '@/layout/Default'
 
-const Home = lazy( () => import('@/page/Home') )
+const Index = lazy( () => import('@/page/Index') )
+const Home = lazy( () => import('@/page/home/Home') )
+const Login = lazy( () => import('@/page/auth/Login') )
+const Error = lazy( () => import('@/page/error/Error') )
 
 function App() {
 
@@ -11,9 +15,23 @@ function App() {
     <>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={ <Default /> }>
-            <Route path="/Home" element={ <Home /> } />
+
+          {/* Private Page */}
+          <Route element={ <ProtectedRoute /> }>
+            <Route element={ <DefaultLayout /> }>
+              <Route path="/Home" element={ <Home /> } />
+            </Route>
           </Route>
+
+          {/* Public Page */}
+          <Route element={ <DefaultLayout /> }>
+
+            <Route path="/" element={ <Index /> } />
+            <Route path="/Login" element={ <Login /> } />
+            <Route path="/Error" element={ <Error /> } />
+            
+          </Route>
+
         </Routes>
       </BrowserRouter>
     </>

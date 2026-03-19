@@ -66,7 +66,7 @@ src/
 
 ### 인증
 
-- [ ] Protected Route
+- [X] Protected Route
 - [ ] JWT 토큰 관리 (access + refresh token)
 - [ ] 자동 토큰 갱신 (silent refresh)
 - [ ] OAuth 2.0 (Google, GitHub)
