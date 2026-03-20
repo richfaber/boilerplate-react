@@ -1,28 +1,22 @@
-import { useNavigate } from "react-router-dom"
+import { useLocation, useNavigate } from "react-router-dom"
+
 import style from "./Login.module.scss"
-
-
-
-async function handleSignIn({ e, request }) {
-
-  const token = 'testToken'
-  localStorage.setItem('accessToken', token)
-
-  return Promise.resolve(true)
-
-}
-
+import { signIn } from "@/hook/useAuth"
 
 export default function Login() {
 
   const navigate = useNavigate()
+  const location = useLocation()
+
 
   async function onSubmit(e) {
 
     if (e) e.preventDefault()
 
-    const result = await handleSignIn(e)
-    if (result) navigate('/Home')
+    const from = location.state?.from?.pathname || '/'
+
+    const result = await signIn()
+    if (result) navigate(from, { replace: true })
 
   }
 
