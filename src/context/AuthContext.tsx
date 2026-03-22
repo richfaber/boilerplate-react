@@ -1,40 +1,44 @@
 import { createContext, useContext, useEffect, useState } from 'react'
 import { getToken, signIn as authSignIn, signOut as authSignOut, refreshAccessToken } from '@/lib/auth'
+import type { UserPayloadType } from '@/lib/auth'
 
-interface AuthContextType {
+export interface AuthContextType {
   isAuthenticated: boolean,
-  signIn: () => void
+  signIn: (payload: { id: string, pw: string }) => Promise<void>,
   signOut: () => void,
-  userId: string | null,
-  role: string | null
+  userId: UserPayloadType['userId'] | null
+  role: UserPayloadType['role'] | null
 }
 
 const AuthContext = createContext<AuthContextType | null>(null)
 
 export function AuthProvider({ children }) {
 
-  const tokenInfo = getToken()
-
-  const [isAuthenticated, setIsAuthenticated] = useState(() => !!tokenInfo)
-  const [userId, setUserId] = useState(tokenInfo?.payload.userId ?? null)
-  const [role, setRole] = useState(tokenInfo?.payload.role ?? null)
-
-  function signIn() {
-
-    authSignIn()
-
+  const [isAuthenticated, setIsAuthenticated] = useState(() => {
     const tokenInfo = getToken()
+    return !!tokenInfo
+  })
+  const [userId, setUserId] = useState(() => getToken()?.payload.userId ?? null)
+  const [role, setRole] = useState(() => getToken()?.payload.role ?? null)
 
-    setUserId(tokenInfo?.payload.userId)
-    setRole(tokenInfo?.payload.role)
-    setIsAuthenticated(true)
+  function signIn(payload) {
+
+    return authSignIn(payload).then(res => {
+
+      const tokenInfo = getToken()
+
+      setUserId(tokenInfo?.payload.userId)
+      setRole(tokenInfo?.payload.role)
+      setIsAuthenticated(true)
+
+    })
 
   }
 
   function signOut() {
 
     authSignOut()
-    
+
     setUserId(null)
     setRole(null)
     setIsAuthenticated(false)
@@ -42,8 +46,8 @@ export function AuthProvider({ children }) {
   }
 
   useEffect(() => {
-    
-    if(!isAuthenticated) return
+
+    if (!isAuthenticated) return
 
     const tokenInfo = getToken()
     if (!tokenInfo) return
@@ -54,7 +58,7 @@ export function AuthProvider({ children }) {
       const newToken = refreshAccessToken()
 
       if (newToken) {
-        
+
         setUserId(newToken.payload.userId)
         setRole(newToken.payload.role)
         setIsAuthenticated(true)
@@ -88,7 +92,7 @@ export function useAuth() {
 
   const context = useContext(AuthContext)
   if (!context) throw new Error('useAuth 는 반드시 AuthProvider 안에서 사용 되어야 함.')
-  
+
   return context
 
 }

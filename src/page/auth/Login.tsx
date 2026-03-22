@@ -1,3 +1,4 @@
+import { useRef, useState } from 'react'
 import { useLocation, useNavigate } from "react-router-dom"
 
 import style from "./Login.module.scss"
@@ -10,15 +11,41 @@ export default function Login() {
   const location = useLocation()
   const { signIn } = useAuth()
 
+  const idRef = useRef(null)
+  const pwRef = useRef(null)
+  const [errorMsg, setErrorMsg] = useState(null)
+
   function onSubmit(e) {
 
     e.preventDefault()
 
+    const id = idRef.current.value
+    const pw = pwRef.current.value
     const from = location.state?.from?.pathname || '/'
+    
+    let validateMsg = ''
 
-    signIn()
-    navigate(from, { replace: true })
+    if (!id) validateMsg += '아이디가 없습니다. '
+    if (!pw) validateMsg += '비밀번호가 없습니다. '
 
+    if(validateMsg) {
+
+      setErrorMsg(validateMsg)
+
+    } else {
+
+      signIn({ id, pw }).then(res => {
+
+        navigate(from, { replace: true })
+
+      }).catch(errorMsg => {
+
+        setErrorMsg(errorMsg)
+
+      })
+      
+    }
+    
   }
 
   return (
@@ -28,10 +55,14 @@ export default function Login() {
         <fieldset>
 
           <legend>로그인폼</legend>
-          <input type="text" defaultValue="1234" placeholder="로그인 아이디 입력" />
-          <input type="password" defaultValue="1234" placeholder="비밀번호 입력" />
+          <input ref={ idRef } type="text" placeholder="admin" />
+          <input ref={ pwRef } type="password" placeholder="1234" />
 
           <button type="submit">로그인</button>
+
+          { errorMsg &&
+            <p className="errorMsg">{ errorMsg }</p>
+          }
 
         </fieldset>
 

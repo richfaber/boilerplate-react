@@ -5,7 +5,7 @@ import { useAuth } from '@/context/AuthContext'
 
 export default function Default() {
 
-  const { isAuthenticated, signOut } = useAuth()
+  const { isAuthenticated, signOut, userId } = useAuth()
   const navigate = useNavigate()
 
   function handleSignOut() {
@@ -17,7 +17,7 @@ export default function Default() {
 
     { 
       isAuthenticated && (
-        <button type="button" onClick={handleSignOut}>로그아웃</button>
+        <button type="button" onClick={handleSignOut}>{ userId } 로그아웃</button>
       )
     }
 

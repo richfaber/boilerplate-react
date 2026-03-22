@@ -1,10 +1,33 @@
 const MOCK_TOKEN = 'eyJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOiJhZG1pbiIsInJvbGUiOiJhZG1pbiIsImV4cCI6OTk5OTk5OTk5OX0.mock-signature'
 const MOCK_REFRESH_TOKEN = 'eyJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOiJhZG1pbiIsInJvbGUiOiJhZG1pbiIsImV4cCI6OTk5OTk5OTk5OTk5fQ.mock-refresh-signature'
+export interface UserPayloadType {
+  userId: string
+  role: string
+  exp: number
+}
 
-export function signIn() {
+export interface TokenInfoType {
+  header: object
+  payload: UserPayloadType
+  signature: string
+}
 
-  localStorage.setItem('accessToken', MOCK_TOKEN)
-  localStorage.setItem('refreshToken', MOCK_REFRESH_TOKEN)
+export function signIn(payload) {
+
+  const { id, pw } = payload
+
+  return new Promise((resolve, reject) => {
+    
+    //@TODO API Validate 후에 토큰 저장
+    if (id === 'admin' && pw === '1234') resolve(true)
+    else reject('아이디 또는 비밀번호가 잘못되었습니다.')
+
+  }).then(res => {
+
+    localStorage.setItem('accessToken', MOCK_TOKEN)
+    localStorage.setItem('refreshToken', MOCK_REFRESH_TOKEN)
+
+  })
 
 }
 
@@ -27,7 +50,7 @@ export function refreshAccessToken() {
 
 }
 
-export function getToken() {
+export function getToken(): TokenInfoType | null {
 
   const token = localStorage.getItem('accessToken')
 
