@@ -44,7 +44,9 @@ pnpm lint
 src/
 ├── main.tsx          # 앱 진입점
 ├── main.scss         # 전역 base 스타일
-├── App.tsx           # 라우터 구성
+├── App.tsx           # Provider 구성
+├── router/           # 라우터 구성
+├── component/        # 공통 컴포넌트
 ├── layout/           # 레이아웃 컴포넌트 (*.tsx + *.module.scss)
 ├── page/             # 페이지 컴포넌트 (lazy import)
 └── resource/
@@ -59,6 +61,7 @@ src/
 - [경로 Alias 설정](docs/alias.md)
 - [SCSS 설정](docs/scss.md)
 - [React 한계 및 의사결정](docs/limitations.md)
+- [Error Boundary](docs/error-boundary.md)
 
 ---
 
