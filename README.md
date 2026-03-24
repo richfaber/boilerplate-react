@@ -62,6 +62,7 @@ src/
 - [SCSS 설정](docs/scss.md)
 - [React 한계 및 의사결정](docs/limitations.md)
 - [Error Boundary](docs/error-boundary.md)
+- [API 클라이언트](docs/api-client.md)
 
 ---
 
@@ -77,7 +78,7 @@ src/
 ### 유틸리티
 
 - [ ] 커스텀 훅 (`useFetch`, `useDebounce`, `useLocalStorage`)
-- [ ] API 클라이언트 추상화 (axios interceptor)
+- [X] API 클라이언트 추상화 (fetch, axios)
 - [X] 에러 바운더리 (Error Boundary)
 - [ ] i18n 다국어 처리
 - [ ] 날짜/시간 포맷 유틸

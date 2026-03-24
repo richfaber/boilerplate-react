@@ -10,13 +10,13 @@ function App() {
 
   return (
     <>
-      <AuthProvider>
+      <BrowserRouter>
 
-        <BrowserRouter>
+        <AuthProvider>
           <Router />
-        </BrowserRouter>
+        </AuthProvider>
 
-      </AuthProvider>
+      </BrowserRouter>
     </>
   )
 

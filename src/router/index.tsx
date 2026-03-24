@@ -16,16 +16,19 @@ const Error = lazy( () => import('@/page/etc/Error') )
 const TestError = lazy( () => import('@/page/test/Error') )
 
 function DefaultFallback({ error }) {
+
   const navigate = useNavigate()
 
   useEffect(() => {
+
     navigate('/Error', { state: { message: error.message } })
+
   }, [])
 
   return null
 }
 
-function BoundaryLayout() {
+function ErrorBoundaryLayer() {
 
   return (
     <ErrorBoundary FallbackComponent={DefaultFallback}>
@@ -45,7 +48,7 @@ export default function Router() {
         <Route path="/Error" element={ <Error /> } />
       </Route>
 
-      <Route element={ <BoundaryLayout /> }>
+      <Route element={ <ErrorBoundaryLayer /> }>
 
         {/* Private Page */}
         <Route element={ <ProtectedRoute /> }>

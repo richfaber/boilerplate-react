@@ -1,3 +1,5 @@
+import { tokenStorage } from '@/lib/tokenStorage'
+
 const MOCK_TOKEN = 'eyJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOiJhZG1pbiIsInJvbGUiOiJhZG1pbiIsImV4cCI6OTk5OTk5OTk5OX0.mock-signature'
 const MOCK_REFRESH_TOKEN = 'eyJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOiJhZG1pbiIsInJvbGUiOiJhZG1pbiIsImV4cCI6OTk5OTk5OTk5OTk5fQ.mock-refresh-signature'
 
@@ -18,15 +20,15 @@ export function signIn(payload) {
   const { id, pw } = payload
 
   return new Promise((resolve, reject) => {
-    
+
     //@TODO API Validate 후에 토큰 저장
     if (id === 'admin' && pw === '1234') resolve(true)
     else reject('아이디 또는 비밀번호가 잘못되었습니다.')
 
   }).then(res => {
 
-    localStorage.setItem('accessToken', MOCK_TOKEN)
-    localStorage.setItem('refreshToken', MOCK_REFRESH_TOKEN)
+    tokenStorage.setAccess(MOCK_TOKEN)
+    tokenStorage.setRefresh(MOCK_REFRESH_TOKEN)
 
   })
 
@@ -46,9 +48,9 @@ export function signInWithOAuth(platform, code) {
 
     }).then(res => {
 
-      localStorage.setItem('accessToken', MOCK_TOKEN)
-      localStorage.setItem('refreshToken', MOCK_REFRESH_TOKEN)
-      
+      tokenStorage.setAccess(MOCK_TOKEN)
+      tokenStorage.setRefresh(MOCK_REFRESH_TOKEN)
+
     })
 
   }
@@ -57,8 +59,8 @@ export function signInWithOAuth(platform, code) {
 
 export function signOut() {
 
-  localStorage.removeItem('accessToken')
-  localStorage.removeItem('refreshToken')
+  tokenStorage.removeAccess()
+  tokenStorage.removeRefresh()
 
 }
 
@@ -68,15 +70,19 @@ export function refreshAccessToken() {
   if(!refreshToken) return null
 
   // @TODO Refresh 토큰을 이용해 통신 후 access Token 을 갱신한다.
-  localStorage.setItem('accessToken', 'eyJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOiJhZG1pbiIsInJvbGUiOiJhZG1pbiIsImV4cCI6OTk5OTk5OTk5OX0.mock-signature')
+  tokenStorage.setAccess('eyJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOiJhZG1pbiIsInJvbGUiOiJhZG1pbiIsImV4cCI6OTk5OTk5OTk5OX0.mock-signature')
 
-  return getToken()
+  return getParsedToken()
 
 }
 
-export function getToken(): TokenInfoType | null {
+export function getRawToken() {
+  return tokenStorage.getAccess()
+}
 
-  const token = localStorage.getItem('accessToken')
+export function getParsedToken(): TokenInfoType | null {
+
+  const token = getRawToken()
 
   if( !token ) return null
 
@@ -85,7 +91,7 @@ export function getToken(): TokenInfoType | null {
   const payload = JSON.parse( atob( tokens[1] ) )
 
   if( payload.exp < Date.now() / 1000) return null
-  
+
   const signature = tokens[2]
 
   return {
@@ -96,7 +102,7 @@ export function getToken(): TokenInfoType | null {
 
 export function getRefreshToken() {
 
-  const token = localStorage.getItem('refreshToken')
+  const token = tokenStorage.getRefresh()
 
   if( !token ) return null
 
@@ -104,10 +110,9 @@ export function getRefreshToken() {
   const payload = JSON.parse( atob( tokens[1] ) )
 
   if( payload.exp < Date.now() / 1000) return null
-  
+
   return {
     userId: payload.userId,
   }
 
 }
-

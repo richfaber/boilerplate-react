@@ -1,5 +1,6 @@
 import { createContext, useContext, useEffect, useState } from 'react'
-import { getToken, signIn as authSignIn, signInWithOAuth, signOut as authSignOut, refreshAccessToken } from '@/lib/auth'
+import { useNavigate } from 'react-router-dom'
+import { getParsedToken, signIn as authSignIn, signInWithOAuth, signOut as authSignOut, refreshAccessToken } from '@/lib/auth'
 import type { UserPayloadType } from '@/lib/auth'
 
 export interface AuthContextType {
@@ -15,12 +16,14 @@ const AuthContext = createContext<AuthContextType | null>(null)
 
 export function AuthProvider({ children }) {
 
+  const navigate = useNavigate()
+
   const [isAuthenticated, setIsAuthenticated] = useState(() => {
-    const tokenInfo = getToken()
+    const tokenInfo = getParsedToken()
     return !!tokenInfo
   })
-  const [userId, setUserId] = useState(() => getToken()?.payload.userId ?? null)
-  const [role, setRole] = useState(() => getToken()?.payload.role ?? null)
+  const [userId, setUserId] = useState(() => getParsedToken()?.payload.userId ?? null)
+  const [role, setRole] = useState(() => getParsedToken()?.payload.role ?? null)
 
   function generateOAuth(platform) {
 
@@ -54,14 +57,14 @@ export function AuthProvider({ children }) {
 
         signInWithOAuth(platform, e.data.code).then(res => {
 
-          const tokenInfo = getToken()
+          const tokenInfo = getParsedToken()
           setUserId(tokenInfo?.payload.userId)
           setRole(tokenInfo?.payload.role)
           setIsAuthenticated(true)          
 
         }).catch(err => {
 
-          // 실패 시 처리
+          // @TODO 실패 시 처리
 
         })
 
@@ -75,7 +78,7 @@ export function AuthProvider({ children }) {
 
     return authSignIn(payload).then(res => {
 
-      const tokenInfo = getToken()
+      const tokenInfo = getParsedToken()
 
       setUserId(tokenInfo?.payload.userId)
       setRole(tokenInfo?.payload.role)
@@ -95,11 +98,26 @@ export function AuthProvider({ children }) {
 
   }
 
+  // apiClient 에서 401 처리 실패 시 'auth:unauthorized' 이벤트 발생
+  useEffect(() => {
+
+    function handleUnauthorized() {
+      signOut()
+      navigate('/Login')
+    }
+
+    window.addEventListener('auth:unauthorized', handleUnauthorized)
+    return () => window.removeEventListener('auth:unauthorized', handleUnauthorized)
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
+  // 인증 상태가 바뀔 때마다 토큰 만료 타이머 재설정
   useEffect(() => {
 
     if (!isAuthenticated) return
 
-    const tokenInfo = getToken()
+    const tokenInfo = getParsedToken()
     if (!tokenInfo) return
 
     const remainTime = (tokenInfo.payload.exp * 1000) - Date.now()

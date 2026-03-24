@@ -4,7 +4,8 @@
 
 ```
 src/
-├── lib/auth.ts             ← signIn, signOut, signInWithOAuth, getToken, getRefreshToken, refreshAccessToken (localStorage 상호작용)
+├── lib/auth.ts             ← signIn, signOut, signInWithOAuth, getRawToken, getParsedToken, getRefreshToken, refreshAccessToken
+├── lib/tokenStorage.ts     ← 토큰 저장소 추상화 (기본값: localStorage)
 ├── context/AuthContext.tsx ← AuthProvider, useAuth hook (전역 상태 + 동작)
 └── page/auth/
     ├── Login.tsx           ← ID/PW 로그인 + OAuth 버튼
@@ -94,6 +95,21 @@ OAuthLogin → generateOAuth('google') → 팝업 열기
 ### 플랫폼 추가 방법
 
 `generateOAuth()` 내부의 `if (platform == 'google')` 블록과 동일한 패턴으로 URL 생성 블록 추가. 팝업/리스너 로직은 공통으로 재사용됨.
+
+## 토큰 저장소
+
+토큰 저장/조회/삭제는 `src/lib/tokenStorage.ts`에서 관리합니다. 기본값은 `localStorage` 이며, 저장소를 바꾸려면 이 파일만 수정하면 됩니다.
+
+## 강제 로그아웃 흐름
+
+`apiClient` / `axiosClient`에서 401 처리 실패(refresh 불가) 시 `auth:unauthorized` CustomEvent를 발행합니다. 
+`AuthContext`가 이를 구독하여 `signOut()` + `/Login` 리다이렉트를 처리합니다.
+
+```
+apiClient → 401 & refresh 실패
+  → dispatchEvent('auth:unauthorized')
+  → AuthContext → signOut() + navigate('/Login')
+```
 
 ## lib vs util
 
