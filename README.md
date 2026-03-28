@@ -60,7 +60,7 @@ src/
 
 ## 문서
 
-- [경로 Alias 설정](docs/alias.md)
+- [개발환경설정](docs/devconfig.md)
 - [SCSS 설정](docs/scss.md)
 - [API 클라이언트](docs/api-client.md)
 - [Error Boundary](docs/error-boundary.md)
