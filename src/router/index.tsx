@@ -14,6 +14,7 @@ const Login = lazy( () => import('@/page/auth/Login') )
 const Error = lazy( () => import('@/page/etc/Error') )
 
 const TestError = lazy( () => import('@/page/test/Error') )
+const I18n = lazy( () => import('@/page/test/I18n') )
 
 function DefaultFallback({ error }) {
 
@@ -63,6 +64,8 @@ export default function Router() {
           <Route path="/Login" element={ <Login /> } />
           <Route path="/test">
             <Route path="Error" element={ <TestError /> } />
+            <Route path="I18n" element={ <I18n /> } />
+            
           </Route>
         </Route>
 

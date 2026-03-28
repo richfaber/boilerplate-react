@@ -1,0 +1,9 @@
+{
+  "home": {
+    "title": "홈",
+    "greeting": "안녕하세요, {{name}}님!"
+  },
+  "test": {
+    "message": "이것은 i18n 으로 출력되었다"
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "home": {
+    "title": "Home",
+    "greeting": "Hello, {{name}}님!"
+  },
+  "test": {
+    "message": "Output completed with i18n"
+  }
+}
