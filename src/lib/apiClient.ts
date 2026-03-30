@@ -40,3 +40,27 @@ export async function apiClient(url: string, options: RequestInit = {}, retry = 
   return res
 
 }
+
+export const http = {
+
+  get(url: string, options?: RequestInit) {
+    return apiClient(url, { ...options, method: 'GET' })
+  },
+
+  post(url: string, data?: unknown, options?: RequestInit) {
+    return apiClient(url, { ...options, method: 'POST', body: JSON.stringify(data) })
+  },
+
+  put(url: string, data?: unknown, options?: RequestInit) {
+    return apiClient(url, { ...options, method: 'PUT', body: JSON.stringify(data) })
+  },
+
+  patch(url: string, data?: unknown, options?: RequestInit) {
+    return apiClient(url, { ...options, method: 'PATCH', body: JSON.stringify(data) })
+  },
+
+  delete(url: string, options?: RequestInit) {
+    return apiClient(url, { ...options, method: 'DELETE' })
+  },
+
+}
