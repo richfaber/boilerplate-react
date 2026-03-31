@@ -1,2 +1,11 @@
 @import "resource/style/base/reset";
 @import "resource/style/base/common";
+
+// 임시코드, 수행 시 삭제
+button {
+  background: red;
+  border: 2px dotted yellow;
+  color: white;
+  border-radius: 5px;
+  padding: 3px 10px;
+}
