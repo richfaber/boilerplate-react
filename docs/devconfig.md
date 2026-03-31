@@ -165,12 +165,6 @@ if (import.meta.env.DEV) {
 
 ---
 
-## Web Vitals 측정
-
-미구현
-
----
-
 ## 개발 서버
 
 ```
