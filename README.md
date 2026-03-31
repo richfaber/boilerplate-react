@@ -63,6 +63,7 @@ src/
 - [개발환경설정](docs/devconfig.md)
 - [SCSS 설정](docs/scss.md)
 - [API 클라이언트](docs/api-client.md)
+- [날짜 유틸](docs/date-util.md)
 - [Error Boundary](docs/error-boundary.md)
 - [i18n 다국어 처리](docs/i18n.md)
 - [React 한계 및 의사결정](docs/limitations.md)
@@ -85,7 +86,7 @@ src/
 - [X] i18n 다국어 처리 (Context)
 - [X] i18n 다국어 처리 (react-i18next)
 - [ ] 커스텀 훅 (`useFetch`, `useDebounce`, `useLocalStorage`)
-- [ ] 날짜/시간 포맷 유틸
+- [X] 날짜/시간 포맷 유틸
 
 ### 컴포넌트
 

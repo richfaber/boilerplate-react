@@ -22,6 +22,7 @@ const ButtonPage = lazy( () => import('@/page/test/ButtonPage') )
 const Zustand = lazy( () => import('@/page/test/Zustand') )
 const TanStack = lazy( () => import('@/page/test/TanStack') )
 const SyncCompData = lazy( () => import('@/page/test/SyncCompData') )
+const DateUtil = lazy( () => import('@/page/test/DateUtil') )
 
 function DefaultFallback({ error }) {
 
@@ -81,6 +82,7 @@ export default function Router() {
             <Route path="Zustand" element={ <Zustand /> } />
             <Route path="TanStack" element={ <TanStack /> } />
             <Route path="SyncCompData" element={ <SyncCompData /> } />
+            <Route path="DateUtil" element={ <DateUtil /> } />
             
           </Route>
         </Route>
