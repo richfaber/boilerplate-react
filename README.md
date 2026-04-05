@@ -94,7 +94,7 @@ src/
 
 - [X] Button
 - [ ] Carousel / Slider
-- [ ] Modal / Dialog
+- [X] Modal / Dialog
 - [ ] Toast / Snackbar 알림
 - [ ] Infinite Scroll
 - [ ] Skeleton Loading

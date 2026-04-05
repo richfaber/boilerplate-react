@@ -7,6 +7,7 @@ import './App.scss'
 
 import Router from '@/router'
 import { I18nProvider } from '@/context/I18nContext'
+import { ModalProvider } from '@/component/modal'
 
 const queryClient = new QueryClient()
 
@@ -18,11 +19,15 @@ function App() {
         <QueryClientProvider client={ queryClient }>
 
           <I18nProvider>
-
-            <AuthProvider>
-              <Router />
-            </AuthProvider>
-
+            
+            <ModalProvider>
+          
+              <AuthProvider>
+                <Router />
+              </AuthProvider>
+  
+            </ModalProvider>
+ 
           </I18nProvider>
 
         </QueryClientProvider>

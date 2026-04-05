@@ -24,6 +24,7 @@ const Zustand = lazy( () => import('@/page/test/Zustand') )
 const TanStack = lazy( () => import('@/page/test/TanStack') )
 const SyncCompData = lazy( () => import('@/page/test/SyncCompData') )
 const DateUtil = lazy( () => import('@/page/test/DateUtil') )
+const ModalPage = lazy( () => import('@/page/test/Modal') )
 
 function DefaultFallback({ error }) {
 
@@ -85,6 +86,7 @@ export default function Router() {
             <Route path="DateUtil" element={ <DateUtil /> } />
             <Route path="I18n" element={ <I18n /> } />
             <Route path="I18nReact" element={ <I18nReact /> } />
+            <Route path="Modal" element={ <ModalPage /> } />
             
           </Route>
         </Route>
