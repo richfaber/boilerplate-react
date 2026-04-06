@@ -1,7 +1,7 @@
 import type React from "react"
 
 export type Item = {
-  value: string | number
+  value: string
   label: string
 }
 
@@ -10,6 +10,7 @@ export type Prop = {
 } & React.ComponentProps<'select'>
 
 export function Select({ children, items, ...rest }: Prop) {
+  
 
   return (
     <select { ...rest }>
