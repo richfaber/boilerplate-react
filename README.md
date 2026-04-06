@@ -93,6 +93,7 @@ src/
 ### 컴포넌트
 
 - [X] Button
+- [X] Select
 - [ ] Carousel / Slider
 - [X] Modal / Dialog
 - [ ] Toast / Snackbar 알림

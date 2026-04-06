@@ -18,6 +18,7 @@ const I18n = lazy( () => import('@/page/test/I18n') )
 const I18nReact = lazy( () => import('@/page/test/I18nReact') )
 
 const ButtonPage = lazy( () => import('@/page/test/ButtonPage') )
+const SelectPage = lazy( () => import('@/page/test/SelectPage') )
 const ReactHookForm = lazy( () => import('@/page/test/ReactHookForm') )
 
 const Zustand = lazy( () => import('@/page/test/Zustand') )
@@ -78,6 +79,8 @@ export default function Router() {
 
             <Route path="Error" element={ <TestError /> } />
             <Route path="Button" element={ <ButtonPage /> } />
+            <Route path="Select" element={ <SelectPage /> } />
+            
             <Route path="ReactHookForm" element={ <ReactHookForm /> } />
 
             <Route path="Zustand" element={ <Zustand /> } />
